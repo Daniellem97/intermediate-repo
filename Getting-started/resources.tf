@@ -15,7 +15,6 @@ resource "spacelift_space" "intermediate-repo" {
 resource "spacelift_stack" "managed" {
   name        = "Stack to create stack with drift detection"
   administrative = true
-  description = "Your first stack managed by Terraform"
   repository   = "intermediate-repo"
   branch       = "main"
   project_root = "Drift-Detection-Stack"
