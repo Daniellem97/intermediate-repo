@@ -3,6 +3,8 @@ variable "ec2_instance_type" {
   type        = string
   description = "EC2 instance type for the workers. If an arm64-based AMI is used, this must be an arm64-based instance type."
   default     = "t3.micro"
+}
+
 variable "min_size" {
   type        = number
   description = "Minimum numbers of workers to spin up"
