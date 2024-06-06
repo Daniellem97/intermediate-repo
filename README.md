@@ -151,7 +151,18 @@ These variables are needed to allow for autoscaling.
 ## Step 6: Optional Activities
 
 <details>
-<summary>Activity 1: Pull Request Notification</summary>
+<summary>Activity 1: Contexts and Policies</summary>
+
+- Our context `Tflint` and policy `Tflintchecker` were both created with the label `autoattach:tflint`.
+- Add the label `tflint` to the stack `Dependencies stack` and watch both the context and policy get attached to the stack.
+- Trigger a run on this stack. The hooks will now install `tflint`, run the tool, and then save these findings in a third-party metadata section of our policy input, which we then use in our policy.
+
+More information: [Integrating Security Tools with Spacelift](https://spacelift.io/blog/integrating-security-tools-with-spacelift)
+
+</details>
+
+<details>
+<summary>Activity 2: Pull Request Notification</summary>
 
 - Open a pull request against any of the stacks.
 - Wait for a comment from the PR notification policy that was created. It will add a comment based on the following conditions:
@@ -163,19 +174,6 @@ These variables are needed to allow for autoscaling.
 More information: [Notification Policy](https://docs.spacelift.io/concepts/policy/notification-policy)
 
 </details>
-
-<details>
-<summary>Activity 2: Contexts and Policies</summary>
-
-- Our context `Tflint` and policy `Tflintchecker` were both created with the label `autoattach:tflint`.
-- Add the label `tflint` to the stack `Dependencies stack` and watch both the context and policy get attached to the stack.
-- Trigger a run on this stack. The hooks will now install `tflint`, run the tool, and then save these findings in a third-party metadata section of our policy input, which we then use in our policy.
-
-More information: [Integrating Security Tools with Spacelift](https://spacelift.io/blog/integrating-security-tools-with-spacelift)
-
-
-</details>
-
 
 ## Step 7: Destroy Resources
 
