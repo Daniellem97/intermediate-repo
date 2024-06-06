@@ -71,8 +71,9 @@ More information: [Integrating Security Tools](https://spacelift.io/blog/integra
 ## Step 1: Fork and Create Stack
 
 1. Fork this repository.
-2. Create an administrative stack in the root space pointing to this repository.
-3. Set the project root as "Getting-Started".
+2. Via the UI, create an administrative stack in the root space pointing to this repository.
+3. Name this stack `intermediate-repo`.
+3. Set the project root as `Getting-Started`.
 
 The project root points to the directory within the repo where the project should start executing. This is especially useful for monorepos.
 
@@ -82,14 +83,14 @@ The project root points to the directory within the repo where the project shoul
    - `TF_VAR_role_name`
    - `TF_VAR_role_arn`
 
-   Follow the [setup guide from AWS](https://docs.spacelift.io/integrations/cloud-providers/aws#setup-guide) to retrieve these values.
+   Follow the [setup guide from AWS](https://docs.spacelift.io/integrations/cloud-providers/aws#setup-guide) to retrieve these values. 
+   
+   **Note:** Do not manually create the Cloud integration, the stack will use these environment variables to do this for you. 
 
-2. Trigger this stack.
-
-### Explanation of resources being created:
+2. Trigger the `intermediate-repo` stack.
 
 <details>
-<summary>Click to expand</summary>
+<summary>Explanation of resources being created:</summary>
 
 - Creating a space for all our resources to go into, isolating it from the rest of our account.
 - Creating a stack to use an AWS EC2 private worker module.
@@ -120,7 +121,8 @@ These variables are needed to allow for autoscaling.
 <details>
 <summary>Click to expand</summary>
 
-- The `Getting-Started` stack has already added variables relating to the worker pool and a mounted file with the IP addresses needed.
+- This stack is using the following [module](https://github.com/spacelift-io/terraform-aws-spacelift-workerpool-on-ec2)
+- The `Intermediate-repo` stack has already added variables relating to the worker pool and a mounted file with the IP addresses needed.
 - Triggering a run on this stack will:
   - Create your VPC, subnets, and a security group with unrestricted egress and restricted ingress to the IP addresses needed.
   - Create your EC2 instance private worker.
@@ -130,21 +132,14 @@ These variables are needed to allow for autoscaling.
 ## Step 4: Trigger Drift Detection Stack
 
 1. Trigger a run on the drift detection stack.
-2. Optionally add `TF_VAR_drift_detection_schedule` environment variable (defaults to every 15 minutes).
-
-### Explanation of Drift Detection
-
-<details>
-<summary>Click to expand</summary>
-
-- This stack will create a stack with a drift detection schedule that runs every 15 minutes.
-- Optional activity: Trigger the stack with drift detection enabled. It will create a context. Manually add a label to this context via the UI and check if the drift detection run notices the drift.
-
-</details>
+2. Optionally add `TF_VAR_drift_detection_schedule` environment variable (defaults to every 15 minutes). Example Value : `["*/15 * * * *"]` for every 15 minutes
+3. Trigger the stack with drift detection enabled. It will create a context. 
+4. Manually add a label to this context via the UI.
+5. After 15 minutes, check if an reconcile run was started.
 
 ## Step 5: Trigger Stack Dependencies Stack
 
-1. Trigger the stack dependencies stack.
+1. Trigger the `Dependencies stack` stack.
 
 ### Explanation of Stack Dependencies
 
@@ -152,8 +147,8 @@ These variables are needed to allow for autoscaling.
 <summary>Click to expand</summary>
 
 - This stack will create two stacks and establish a stack dependency between them with a shared output.
-- The infra stack will output `DB_CONNECTION_STRING` and save it as an input of `TF_VAR_APP_DB_URL` to the APP stack.
-- Optional activity: Trigger a run on the infra stack to create the `DB_CONNECTION_STRING`, then automatically start a run in the app stack and save this output as an input to be used.
+- The Infra stack will output `DB_CONNECTION_STRING` and save it as an input of `TF_VAR_APP_DB_URL` to the App stack.
+- Optional activity: Trigger a run on the Infra stack to create the `DB_CONNECTION_STRING`, then automatically start a run in the app stack and save this output as an input to be used.
 
 </details>
 
@@ -166,6 +161,7 @@ These variables are needed to allow for autoscaling.
 
 - Open a pull request against any of the stacks.
 - Wait for a comment from the PR notification policy that was created. It will add a comment based on the following conditions:
+
   - If the stack has failed in any stage not due to a policy, it will post the relevant logs.
   - If the stack has failed due to a policy, it will give a summary of the policies and any relevant deny messages.
   - If the stack has finished successfully, it will post a summary of the run, the policies used, and any changes to be made.
@@ -180,26 +176,18 @@ More information: [Notification Policy](https://docs.spacelift.io/concepts/polic
 <summary>Click to expand</summary>
 
 - Our context `Tflint` and policy `Tflintchecker` were both created with the label `autoattach:tflint`.
-- Add the label `tflint` to a stack of your choice and watch both the context and policy get attached to the stack.
-- Trigger a run on this stack. The hooks will now install `tflint`, run the tool, and save these findings in a third-party metadata section of our policy input, which we then use in our policy.
+- Add the label `tflint` to the stack `Dependencies stack` and watch both the context and policy get attached to the stack.
+- Trigger a run on this stack. The hooks will now install `tflint`, run the tool, and then save these findings in a third-party metadata section of our policy input, which we then use in our policy.
 
 More information: [Integrating Security Tools with Spacelift](https://spacelift.io/blog/integrating-security-tools-with-spacelift)
 
-</details>
-
-### Activity 3: Import Policy from Policy Library
-
-<details>
-<summary>Click to expand</summary>
-
-- Import a policy from the policy library via the UI.
-- Attach it to the stack.
 
 </details>
+
 
 ## Step 7: Destroy Resources
 
-1. Run `terraform destroy -auto-approve` as a task in the `getting-started` stack.
+1. Run `terraform destroy -auto-approve` as a task in the `intermediate-repo` stack.
 
 ### Explanation of Resource Destruction
 
