@@ -116,10 +116,8 @@ The project root points to the directory within the repo where the project shoul
 
 These variables are needed to allow for autoscaling.
 
-### Explanation of Private Worker Stack
-
 <details>
-<summary>Click to expand</summary>
+<summary>Explanation of Private Worker Stack</summary>
 
 - This stack is using the following [module](https://github.com/spacelift-io/terraform-aws-spacelift-workerpool-on-ec2)
 - The `Intermediate-repo` stack has already added variables relating to the worker pool and a mounted file with the IP addresses needed.
@@ -141,10 +139,8 @@ These variables are needed to allow for autoscaling.
 
 1. Trigger the `Dependencies stack` stack.
 
-### Explanation of Stack Dependencies
-
 <details>
-<summary>Click to expand</summary>
+<summary>Explanation of Stack Dependencies</summary>
 
 - This stack will create two stacks and establish a stack dependency between them with a shared output.
 - The Infra stack will output `DB_CONNECTION_STRING` and save it as an input of `TF_VAR_APP_DB_URL` to the App stack.
@@ -154,10 +150,8 @@ These variables are needed to allow for autoscaling.
 
 ## Step 6: Optional Activities
 
-### Activity 1: Pull Request Notification
-
 <details>
-<summary>Click to expand</summary>
+<summary>Activity 1: Pull Request Notification</summary>
 
 - Open a pull request against any of the stacks.
 - Wait for a comment from the PR notification policy that was created. It will add a comment based on the following conditions:
@@ -170,10 +164,8 @@ More information: [Notification Policy](https://docs.spacelift.io/concepts/polic
 
 </details>
 
-### Activity 2: Contexts and Policies
-
 <details>
-<summary>Click to expand</summary>
+<summary>Activity 2: Contexts and Policies</summary>
 
 - Our context `Tflint` and policy `Tflintchecker` were both created with the label `autoattach:tflint`.
 - Add the label `tflint` to the stack `Dependencies stack` and watch both the context and policy get attached to the stack.
@@ -189,10 +181,8 @@ More information: [Integrating Security Tools with Spacelift](https://spacelift.
 
 1. Run `terraform destroy -auto-approve` as a task in the `intermediate-repo` stack.
 
-### Explanation of Resource Destruction
-
 <details>
-<summary>Click to expand</summary>
+<summary>Explanation of Resource Destruction</summary>
 
 - Our stack has also created stack-destructors, which handle the execution of destroying the resources on our created stacks first to ensure all resources are destroyed.
 
