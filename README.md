@@ -5,10 +5,8 @@ This repository focuses solely on terraform and AWS.
 
 ## Topics Covered:
 
-### Runtime Configuration
-
 <details>
-<summary>Click to expand</summary>
+<summary>### Runtime Configuration</summary>
 
 Runtime Configuration allows you to set up and manage configurations that define how your infrastructure is deployed and managed. It helps you control various aspects such as environment variables, command execution, and more.
 
