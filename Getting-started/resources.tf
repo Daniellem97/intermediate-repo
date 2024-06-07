@@ -30,7 +30,6 @@ resource "spacelift_stack_destructor" "ddstack" {
   ]
 }
 
-
 resource "spacelift_stack" "Stack-Dependencies" {
   name        = "Dependencies stack"
   administrative = true
