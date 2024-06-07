@@ -8,6 +8,7 @@ resource "spacelift_space" "intermediate-repo" {
   # Except for the root space, all the other spaces must define their parents.
   parent_space_id = "root"
 
+
   # An optional description of a space.
   description = "All the resources for this intermediate repo will be created here."
 }
