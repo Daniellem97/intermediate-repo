@@ -28,6 +28,8 @@ More information: [AWS Cloud Integration](https://docs.spacelift.io/integrations
 
 Private Workers allow you to run jobs on dedicated, isolated instances within your VPC, enhancing security and compliance.
 
+https://github.com/Daniellem97/intermediate-repo/assets/61118080/e68b7ebb-97a5-4da7-a4f5-b1d7416efc5b
+
 More information: [Private Workers](https://docs.spacelift.io/concepts/vcs-agent-pools.html#private-workers)
 
 </details>
