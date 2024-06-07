@@ -28,8 +28,6 @@ More information: [AWS Cloud Integration](https://docs.spacelift.io/integrations
 
 Private Workers allow you to run jobs on dedicated, isolated instances within your VPC, enhancing security and compliance.
 
-https://github.com/Daniellem97/intermediate-repo/assets/61118080/e68b7ebb-97a5-4da7-a4f5-b1d7416efc5b
-
 More information: [Private Workers](https://docs.spacelift.io/concepts/vcs-agent-pools.html#private-workers)
 
 </details>
@@ -79,6 +77,8 @@ More information: [Integrating Security Tools](https://spacelift.io/blog/integra
 
 The project root points to the directory within the repo where the project should start executing. This is especially useful for monorepos.
 
+[Here is a walkthrough video](https://github.com/Daniellem97/intermediate-repo/issues/6#issue-2339661550)
+
 ## Step 2: Add Variables and Trigger Stack
 
 1. Add two variables to this stack:
@@ -87,9 +87,11 @@ The project root points to the directory within the repo where the project shoul
 
    Follow the [setup guide from AWS](https://docs.spacelift.io/integrations/cloud-providers/aws#setup-guide) to retrieve these values. 
    
-   **Note:** Do not manually create the Cloud integration, the stack will use these environment variables to do this for you. 
+   **Note:** Do not manually create the Cloud integration, the stack will use these environment variables to do this for you.
 
-2. Trigger the `intermediate-repo` stack.
+3. Trigger the `intermediate-repo` stack.
+
+[Here is a walkthrough video](https://github.com/Daniellem97/intermediate-repo/issues/7#issue-2339665046)
 
 <details>
 <summary>Explanation of resources being created:</summary>
@@ -118,6 +120,8 @@ The project root points to the directory within the repo where the project shoul
 
 These variables are needed to allow for autoscaling.
 
+[Here is a walkthrough video](https://github.com/Daniellem97/intermediate-repo/issues/8#issue-2339665866)
+
 <details>
 <summary>Explanation of Private Worker Stack</summary>
 
@@ -137,16 +141,20 @@ These variables are needed to allow for autoscaling.
 4. Manually add a label to this context via the UI.
 5. After 15 minutes, check if an reconcile run was started.
 
+[Here is a walkthrough video](https://github.com/Daniellem97/intermediate-repo/issues/9#issue-2339667726)
+
 ## Step 5: Trigger Stack Dependencies Stack
 
 1. Trigger the `Dependencies stack` stack.
+2. Once the stack is finished, trigger a run on the Infra stack to create the `DB_CONNECTION_STRING`, which will then automatically start a run in the app stack and save this output as an input to be used.
+
+[Here is a walkthrough video](https://github.com/Daniellem97/intermediate-repo/issues/10#issue-2339668651
 
 <details>
 <summary>Explanation of Stack Dependencies</summary>
 
 - This stack will create two stacks and establish a stack dependency between them with a shared output.
 - The Infra stack will output `DB_CONNECTION_STRING` and save it as an input of `TF_VAR_APP_DB_URL` to the App stack.
-- Optional activity: Trigger a run on the Infra stack to create the `DB_CONNECTION_STRING`, then automatically start a run in the app stack and save this output as an input to be used.
 
 </details>
 
@@ -158,6 +166,8 @@ These variables are needed to allow for autoscaling.
 - Our context `Tflint` and policy `Tflintchecker` were both created with the label `autoattach:tflint`.
 - Add the label `tflint` to the stack `Dependencies stack` and watch both the context and policy get attached to the stack.
 - Trigger a run on this stack. The hooks will now install `tflint`, run the tool, and then save these findings in a third-party metadata section of our policy input, which we then use in our policy.
+
+[Here is a walkthrough video](https://github.com/Daniellem97/intermediate-repo/issues/11#issue-2339669346)
 
 More information: [Integrating Security Tools with Spacelift](https://spacelift.io/blog/integrating-security-tools-with-spacelift)
 
@@ -172,6 +182,8 @@ More information: [Integrating Security Tools with Spacelift](https://spacelift.
   - If the stack has failed in any stage not due to a policy, it will post the relevant logs.
   - If the stack has failed due to a policy, it will give a summary of the policies and any relevant deny messages.
   - If the stack has finished successfully, it will post a summary of the run, the policies used, and any changes to be made.
+    
+[Here is a walkthrough video](https://github.com/Daniellem97/intermediate-repo/issues/12#issue-2339669959)
 
 More information: [Notification Policy](https://docs.spacelift.io/concepts/policy/notification-policy)
 
@@ -180,6 +192,9 @@ More information: [Notification Policy](https://docs.spacelift.io/concepts/polic
 ## Step 7: Destroy Resources
 
 1. Run `terraform destroy -auto-approve` as a task in the `intermediate-repo` stack.
+
+[Here is a walkthrough video](https://github.com/Daniellem97/intermediate-repo/issues/13#issue-2339670633)
+
 
 <details>
 <summary>Explanation of Resource Destruction</summary>
