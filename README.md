@@ -73,7 +73,7 @@ More information: [Integrating Security Tools](https://spacelift.io/blog/integra
 1. Fork this repository.
 2. Via the UI, create an administrative stack in the root space pointing to this repository.
 3. Name this stack `intermediate-repo`.
-3. Set the project root as `Getting-Started`.
+3. Set the project root as `Getting-started`.
 
 The project root points to the directory within the repo where the project should start executing. This is especially useful for monorepos.
 
