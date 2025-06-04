@@ -106,8 +106,6 @@ The project root points to the directory within the repo where the project shoul
 - Setting environment variables for the worker pool ID to be used in other stacks to utilize the private worker pool.
 - Setting environment variables for the private key and worker pool config.
 
-**Note:** We are using a runtime config file with the stack default AWS region set to `eu-west-1`, which will apply to all stacks.
-
 </details>
 
 ## Step 3: Create API Key and Configure Private Worker Stack
@@ -117,6 +115,7 @@ The project root points to the directory within the repo where the project shoul
    - `TF_VAR_spacelift_api_key_id`
    - `TF_VAR_spacelift_api_key_secret`
    - `TF_VAR_spacelift_api_endpoint` (https://(youraccountname).app.spacelift.io)
+   - `AWS_REGION` (you can create a context in the intermediate-repo space with this as an env var and instead use the magic autoattach label to autoattach it to all stacks in the space)
 
 These variables are needed to allow for autoscaling.
 
