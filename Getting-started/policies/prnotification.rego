@@ -5,7 +5,7 @@ import future.keywords.if
 import future.keywords.in
 
 # regal ignore:line-length
-run_link := sprintf("https://%s.app.spacelift.io/stack/%s/run/%s", [input.account.name, input.run_updated.stack.id, input.run_updated.run.id])
+run_link := sprintf("https://%s.app.spaacelift.io/stack/%s/run/%s", [input.account.name, input.run_updated.stack.id, input.run_updated.run.id])
 
 # Helper Function to Trim Spaces
 trim_spaces(s) := trim(trim(s, "\n"), " ")
